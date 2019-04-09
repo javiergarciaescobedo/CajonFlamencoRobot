@@ -9,25 +9,21 @@ export class ApiRestService {
 
   constructor(private http: HttpClient) { }
 
-  downloadSongs() {
-    return new Promise(resolve => {
-      this.http.get('http://192.168.111.88:8080/get_songs_list').subscribe(
-        res => {
-          resolve(res);
-        }, err => {
-          console.log(err);
-        })
-    });
+  async downloadSongs() {
+    try {
+      return await this.http.get('http://192.168.111.88:8080/get_songs_list').toPromise();
+    } catch (error) {
+      console.log('Error en downloadSongs: ', error);
+      throw error;
+    } 
   }
 
-  play(song) {
-    console.log("Reproducir: ", song);
-    this.http.get('http://192.168.111.88:8080/play?song=' + song.name).subscribe(
-      res => {
-        console.log(res);
-      }, err => {
-        console.log(err);
-      }
-    );  
+  async play(song) {
+    try {
+      return await this.http.get('http://192.168.111.88:8080/play?song=' + song.name).toPromise();
+    } catch (error) {
+      console.log('Error en play: ', error);
+      throw error;
+    } 
   }
 }
