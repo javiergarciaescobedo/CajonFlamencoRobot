@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ApiRestService } from '../api-rest.service';
-import { AlertController } from '@ionic/angular';
+import { AlertController, Platform } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { PlayControlPage } from '../play-control/play-control.page';
 
@@ -15,11 +15,17 @@ export class HomePage {
 
   constructor(private apiRestService: ApiRestService, 
     private alertController: AlertController,
-    private modalController: ModalController ) { 
+    private modalController: ModalController,
+    private platform: Platform ) { 
   }
 
   ionViewDidEnter() {
     this.downloadSongs();
+    // To prevent interference with ionic's own backbutton handling
+    // subscribe with a low priority instead
+    this.platform.backButton.subscribeWithPriority(0, () => {
+      navigator['app'].exitApp();
+    });
   }
 
   async downloadSongs() {
