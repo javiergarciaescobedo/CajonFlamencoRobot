@@ -9,7 +9,7 @@
 <ion-content>
   <div class="ion-padding">
       <div *ngIf="songs">
-        <ion-item *ngFor="let song of songs.children" (click)='play(song)'> 
+        <ion-item *ngFor="let song of songs.children" (click)='openPlayControl(song)'> 
           <h2>{{song.name}}</h2> 
         </ion-item>
       </div>

@@ -11,7 +11,7 @@ export class ApiRestService {
 
   async downloadSongs() {
     try {
-      return await this.http.get('http://192.168.111.88:8080/get_songs_list').toPromise();
+      return await this.http.get('https://192.168.111.127:8080/get_songs_list').toPromise();
     } catch (error) {
       console.log('Error en downloadSongs: ', error);
       throw error;
@@ -20,9 +20,18 @@ export class ApiRestService {
 
   async play(song) {
     try {
-      return await this.http.get('http://192.168.111.88:8080/play?song=' + song.name).toPromise();
+      return await this.http.get('https://192.168.111.127:8080/play?song=' + song.name).toPromise();
     } catch (error) {
       console.log('Error en play: ', error);
+      throw error;
+    } 
+  }
+
+  async stop() {
+    try {
+      return await this.http.get('https://192.168.111.127:8080/stop').toPromise();
+    } catch (error) {
+      console.log('Error en stop: ', error);
       throw error;
     } 
   }

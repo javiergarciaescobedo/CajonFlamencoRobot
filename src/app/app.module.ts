@@ -10,10 +10,11 @@ import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 
 import { HttpClientModule } from '@angular/common/http';
+import { PlayControlPage } from './play-control/play-control.page';
 
 @NgModule({
-  declarations: [AppComponent],
-  entryComponents: [],
+  declarations: [AppComponent, PlayControlPage],
+  entryComponents: [PlayControlPage],
   imports: [
     BrowserModule, 
     HttpClientModule, 

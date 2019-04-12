@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { ApiRestService } from '../api-rest.service';
 import { AlertController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
+import { PlayControlPage } from '../play-control/play-control.page';
 
 @Component({
   selector: 'app-home',
@@ -11,7 +13,9 @@ export class HomePage {
 
   songs: any;
 
-  constructor(private apiRestService: ApiRestService, private alertController: AlertController ) { 
+  constructor(private apiRestService: ApiRestService, 
+    private alertController: AlertController,
+    private modalController: ModalController ) { 
   }
 
   ionViewDidEnter() {
@@ -22,25 +26,28 @@ export class HomePage {
     try {
       this.songs = await this.apiRestService.downloadSongs();    
     } catch(error) {
-      this.showError();
+      console.log(error);
+      this.showError('Error: ' + error.message);
     }
   }
 
-  async showError() {  
+  async showError(message: string) {  
     const alert = await this.alertController.create({
       header: 'Error',
-      message: 'No se ha encontrado el servidor',
+      message: message,
       buttons: ['OK']
     });
     return await alert.present();
   }
 
-  async play(song) {    
-    try {
-      this.songs = await this.apiRestService.play(song);    
-    } catch(error) {
-      this.showError();
-    }
+  async openPlayControl(song) {
+    console.log('Abriendo PlayControl');
+    const modal = await this.modalController.create({
+      component: PlayControlPage,
+      componentProps: {
+        'song': song
+      }
+    });
+    return await modal.present();
   }
-
 }

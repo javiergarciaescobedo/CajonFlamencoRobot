@@ -1,0 +1,17 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Play Control</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="ion-padding">
+    <h2>{{ song.name }}</h2>
+    <ion-button (click)="play(song)">
+      Play
+    </ion-button>
+    <ion-button (click)="stop()">
+        Stop
+    </ion-button>
+  </div>
+</ion-content>
